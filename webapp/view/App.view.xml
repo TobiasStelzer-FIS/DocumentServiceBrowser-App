@@ -1,0 +1,9 @@
+<mvc:View
+		controllerName="de.fis.filebrowser.controller.App"
+		xmlns:mvc="sap.ui.core.mvc"
+		displayBlock="true"
+		busy="{appView>/busy}"
+		busyIndicatorDelay="{appView>/delay}"
+		xmlns="sap.m">
+	<SplitApp id="idAppControl"/>	<!-- class="sapContrast" --> 
+</mvc:View>

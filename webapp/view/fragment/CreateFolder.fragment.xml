@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:commons="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	xmlns="sap.m">
+	<Dialog title="Create folder">
+		<form:Form>
+			<form:layout>
+				<form:ResponsiveGridLayout columnsM="1" columnsL="1" columnsXL="1" singleContainerFullSize="false" adjustLabelSpan="false" labelSpanM="4" emptySpanM="0"/>
+			</form:layout>
+			<form:FormContainer>
+				<form:FormElement label="Name">
+					<Input value="{detailView>/newFolderName}"/>
+				</form:FormElement>
+			</form:FormContainer>
+		</form:Form>
+		<buttons>
+			<Button id="btnCreateFolderSave" text="{i18n>detailCreateButton}" press="onCreateFolderSave"/>
+			<Button id="btnCreateFolderCancel" text="{i18n>detailCancelButton}" press="onDialogCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

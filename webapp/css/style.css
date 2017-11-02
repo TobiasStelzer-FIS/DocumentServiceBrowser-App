@@ -1,0 +1,4 @@
+.transparentButton .sapMBtnInner {
+  background-color: rgba(250, 250, 250, 0);
+  border-width: 0px;
+}

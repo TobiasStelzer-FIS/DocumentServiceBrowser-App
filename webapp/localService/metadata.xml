@@ -1,0 +1,199 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+    <edmx:DataServices
+        xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="1.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ApplmanSrv">
+            <EntityType Name="Applicant">
+                <Key>
+                    <PropertyRef Name="ApplicantId"/>
+                </Key>
+                <Property Name="ApplicantId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Birthdate" Type="Edm.DateTime" Nullable="false"/>
+                <Property Name="City" Type="Edm.String" Nullable="false" MaxLength="40"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Email" Type="Edm.String" Nullable="true" MaxLength="80"/>
+                <Property Name="Firstname" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Gender" Type="Edm.String" Nullable="false" MaxLength="2"/>
+                <Property Name="Lastname" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="Mobile" Type="Edm.String" Nullable="true" MaxLength="40"/>
+                <Property Name="Phone" Type="Edm.String" Nullable="true" MaxLength="40"/>
+                <Property Name="Picture" Type="Edm.String" Nullable="true" MaxLength="40"/>
+                <Property Name="Salutation" Type="Edm.String" Nullable="true" MaxLength="50"/>
+                <Property Name="Street" Type="Edm.String" Nullable="false" MaxLength="60"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <Property Name="Zipcode" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <NavigationProperty Name="Applications" Relationship="ApplmanSrv.Applicant_Application_One_Many0" FromRole="Applicant" ToRole="Application"/>
+            </EntityType>
+            <EntityType Name="Application">
+                <Key>
+                    <PropertyRef Name="ApplicationId"/>
+                </Key>
+                <Property Name="Applicant" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="ApplicationId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="EnteredBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="EnteredOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="Status" Type="Edm.String" Nullable="true" MaxLength="10"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <NavigationProperty Name="ApplicantDetails" Relationship="ApplmanSrv.Applicant_Application_One_Many0" FromRole="Application" ToRole="Applicant"/>
+                <NavigationProperty Name="Comments" Relationship="ApplmanSrv.Application_Comment_One_Many0" FromRole="Application" ToRole="Comment"/>
+                <NavigationProperty Name="Documents" Relationship="ApplmanSrv.Application_Document_One_Many0" FromRole="Application" ToRole="Document"/>
+                <NavigationProperty Name="Positions" Relationship="ApplmanSrv.Application_Position_Many_Many0" FromRole="Application" ToRole="Position"/>
+                <NavigationProperty Name="Sources" Relationship="ApplmanSrv.Application_Source_Many_Many0" FromRole="Application" ToRole="Source"/>
+                <NavigationProperty Name="StatusDetails" Relationship="ApplmanSrv.Application_Status_Many_One0" FromRole="Application" ToRole="Status"/>
+            </EntityType>
+            <EntityType Name="Comment">
+                <Key>
+                    <PropertyRef Name="CommentId"/>
+                </Key>
+                <Property Name="Application" Type="Edm.String" Nullable="true" MaxLength="10"/>
+                <Property Name="CommentId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Name" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Subject" Type="Edm.String" Nullable="false" MaxLength="30"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="500"/>
+                <Property Name="Timestamp" Type="Edm.DateTime" Nullable="false"/>
+                <NavigationProperty Name="ApplicationDetails" Relationship="ApplmanSrv.Application_Comment_One_Many0" FromRole="Comment" ToRole="Application"/>
+            </EntityType>
+            <EntityType Name="Document">
+                <Key>
+                    <PropertyRef Name="DocumentId"/>
+                </Key>
+                <Property Name="Application" Type="Edm.String" Nullable="true" MaxLength="10"/>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Displaytext" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="DocumentId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="Documentname" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <NavigationProperty Name="ApplicationDetails" Relationship="ApplmanSrv.Application_Document_One_Many0" FromRole="Document" ToRole="Application"/>
+            </EntityType>
+            <EntityType Name="Position">
+                <Key>
+                    <PropertyRef Name="PositionId"/>
+                </Key>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="150"/>
+                <Property Name="PositionId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <NavigationProperty Name="Applications" Relationship="ApplmanSrv.Application_Position_Many_Many0" FromRole="Position" ToRole="Application"/>
+            </EntityType>
+            <EntityType Name="Source">
+                <Key>
+                    <PropertyRef Name="SourceId"/>
+                </Key>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="150"/>
+                <Property Name="SourceId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <NavigationProperty Name="Applications" Relationship="ApplmanSrv.Application_Source_Many_Many0" FromRole="Source" ToRole="Application"/>
+            </EntityType>
+            <EntityType Name="Status">
+                <Key>
+                    <PropertyRef Name="StatusId"/>
+                </Key>
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="100"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="20"/>
+                <Property Name="StatusId" Type="Edm.String" Nullable="false" MaxLength="10"/>
+                <Property Name="System" Type="ApplmanSrv.System"/>
+                <NavigationProperty Name="Applications" Relationship="ApplmanSrv.Application_Status_Many_One0" FromRole="Status" ToRole="Application"/>
+            </EntityType>
+            <ComplexType Name="System">
+                <Property Name="CreatedBy" Type="Edm.String" Nullable="true" MaxLength="36"/>
+                <Property Name="CreatedOn" Type="Edm.DateTime" Nullable="true"/>
+                <Property Name="UpdatedBy" Type="Edm.String" Nullable="true" MaxLength="36"/>
+                <Property Name="UpdatedOn" Type="Edm.DateTime" Nullable="true"/>
+            </ComplexType>
+            <Association Name="Applicant_Application_One_Many0">
+                <End Type="ApplmanSrv.Applicant" Multiplicity="1" Role="Applicant"/>
+                <End Type="ApplmanSrv.Application" Multiplicity="*" Role="Application"/>
+                <ReferentialConstraint>
+                    <Principal Role="Applicant">
+                        <PropertyRef Name="ApplicantId"/>
+                    </Principal>
+                    <Dependent Role="Application">
+                        <PropertyRef Name="Applicant"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Application_Status_Many_One0">
+                <End Type="ApplmanSrv.Application" Multiplicity="*" Role="Application"/>
+                <End Type="ApplmanSrv.Status" Multiplicity="1" Role="Status"/>
+                <ReferentialConstraint>
+                    <Principal Role="Status">
+                        <PropertyRef Name="StatusId"/>
+                    </Principal>
+                    <Dependent Role="Application">
+                        <PropertyRef Name="Status"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Application_Comment_One_Many0">
+                <End Type="ApplmanSrv.Application" Multiplicity="1" Role="Application"/>
+                <End Type="ApplmanSrv.Comment" Multiplicity="*" Role="Comment"/>
+                <ReferentialConstraint>
+                    <Principal Role="Application">
+                        <PropertyRef Name="ApplicationId"/>
+                    </Principal>
+                    <Dependent Role="Comment">
+                        <PropertyRef Name="Application"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Application_Document_One_Many0">
+                <End Type="ApplmanSrv.Application" Multiplicity="1" Role="Application"/>
+                <End Type="ApplmanSrv.Document" Multiplicity="*" Role="Document"/>
+                <ReferentialConstraint>
+                    <Principal Role="Application">
+                        <PropertyRef Name="ApplicationId"/>
+                    </Principal>
+                    <Dependent Role="Document">
+                        <PropertyRef Name="Application"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="Application_Position_Many_Many0">
+                <End Type="ApplmanSrv.Application" Multiplicity="*" Role="Application"/>
+                <End Type="ApplmanSrv.Position" Multiplicity="*" Role="Position"/>
+            </Association>
+            <Association Name="Application_Source_Many_Many0">
+                <End Type="ApplmanSrv.Application" Multiplicity="*" Role="Application"/>
+                <End Type="ApplmanSrv.Source" Multiplicity="*" Role="Source"/>
+            </Association>
+            <EntityContainer Name="ApplmanSrvContainer" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Applicants" EntityType="ApplmanSrv.Applicant"/>
+                <EntitySet Name="Applications" EntityType="ApplmanSrv.Application"/>
+                <EntitySet Name="Comments" EntityType="ApplmanSrv.Comment"/>
+                <EntitySet Name="Documents" EntityType="ApplmanSrv.Document"/>
+                <EntitySet Name="Positions" EntityType="ApplmanSrv.Position"/>
+                <EntitySet Name="Sources" EntityType="ApplmanSrv.Source"/>
+                <EntitySet Name="Statuss" EntityType="ApplmanSrv.Status"/>
+                <AssociationSet Name="Applicant_Application_One_Many0Set" Association="ApplmanSrv.Applicant_Application_One_Many0">
+                    <End EntitySet="Applicants" Role="Applicant"/>
+                    <End EntitySet="Applications" Role="Application"/>
+                </AssociationSet>
+                <AssociationSet Name="Application_Status_Many_One0Set" Association="ApplmanSrv.Application_Status_Many_One0">
+                    <End EntitySet="Applications" Role="Application"/>
+                    <End EntitySet="Statuss" Role="Status"/>
+                </AssociationSet>
+                <AssociationSet Name="Application_Comment_One_Many0Set" Association="ApplmanSrv.Application_Comment_One_Many0">
+                    <End EntitySet="Applications" Role="Application"/>
+                    <End EntitySet="Comments" Role="Comment"/>
+                </AssociationSet>
+                <AssociationSet Name="Application_Document_One_Many0Set" Association="ApplmanSrv.Application_Document_One_Many0">
+                    <End EntitySet="Applications" Role="Application"/>
+                    <End EntitySet="Documents" Role="Document"/>
+                </AssociationSet>
+                <AssociationSet Name="Application_Position_Many_Many0Set" Association="ApplmanSrv.Application_Position_Many_Many0">
+                    <End EntitySet="Applications" Role="Application"/>
+                    <End EntitySet="Positions" Role="Position"/>
+                </AssociationSet>
+                <AssociationSet Name="Application_Source_Many_Many0Set" Association="ApplmanSrv.Application_Source_Many_Many0">
+                    <End EntitySet="Applications" Role="Application"/>
+                    <End EntitySet="Sources" Role="Source"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

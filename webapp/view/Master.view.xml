@@ -1,0 +1,31 @@
+<mvc:View controllerName="de.fis.filebrowser.controller.Master" xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:core="sap.ui.core" xmlns="sap.m"
+	xmlns:semantic="sap.m.semantic">
+	<semantic:MasterPage id="page" title="{i18n>masterTitle}" 
+		navButtonPress="onNavBack" showNavButton="true">
+		<semantic:subHeader>
+			<Toolbar>
+				<Text text="Repository:"/>
+				<Select id="selectRepository" items="{app>/repositories}" selectedKey="{app>/selectedRepository}" change="onRepositoryChange">
+					<core:Item key="{app>name}" text="{app>description}" />
+				</Select>
+			</Toolbar>
+		</semantic:subHeader>
+		<semantic:customHeaderContent>
+			<Button icon="sap-icon://refresh" press="onRefresh" 
+				visible="{= !${device>/support/touch} }" tooltip="{i18n>refreshButtonTooltip}"/>
+		</semantic:customHeaderContent>
+		<semantic:content>
+			<PullToRefresh id="pullToRefresh" visible="{device>/support/touch}" 
+				refresh="onRefresh"/>
+			<Tree id="Tree" items="{path: 'hierarchyModel>/Hierarchy'}" 
+				mode="SingleSelectMaster" includeItemInSelection="true"
+				busyIndicatorDelay="{masterView>/delay}" busy="{masterView>/busy}" 
+				itemPress="onItemPressed" updateFinished="onUpdateFinished">
+				
+				<StandardTreeItem title="{hierarchyModel>Name}" icon="sap-icon://folder-blank" 
+					type="Active" counter="{=${hierarchyModel>Children}.length}"/>
+			</Tree>
+		</semantic:content>
+	</semantic:MasterPage>
+</mvc:View>

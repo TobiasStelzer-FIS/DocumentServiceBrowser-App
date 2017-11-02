@@ -1,0 +1,67 @@
+<mvc:View controllerName="de.fis.filebrowser.controller.Detail" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+	xmlns:semantic="sap.m.semantic">
+	<semantic:DetailPage id="page" navButtonPress="onNavBack" showNavButton="{device>/system/phone}" title="{i18n>detailTitle}"
+		busy="{detailView>/busy}" busyIndicatorDelay="{detailView>/delay}">
+		<semantic:content>
+			<Table id="folderContentTable" width="auto" items="{path: 'contentModel>/SelectedFolder/Children'}" updateFinished="onTableUpdateFinished"
+				noDataText="{i18n>detailFolderContentTableNoDataText}" busyIndicatorDelay="{detailView>/lineItemTableDelay}" class="sapUiResponsiveMargin"
+				itemPress="onItemPressed" fixedLayout="false">
+				<headerToolbar>
+					<Toolbar id="lineItemsToolbar">
+						<VBox width="100%">
+							<Breadcrumbs links="{path: 'contentModel>/SelectedFolder/Parents'}" currentLocationText="{contentModel>/SelectedFolder/Name}">
+								<Link text="{contentModel>Name}" press="onBreadcrumbPress"/>
+							</Breadcrumbs>
+						</VBox>
+					</Toolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="15px"></Column>
+					<Column>
+						<Text text="{i18n>detailFolderContentTableIDColumn}"/>
+					</Column>
+					<Column width="auto" minScreenWidth="Small">
+						<Text text="{i18n>detailFolderContentTableFiletypeColumn}"/>
+					</Column>
+					<Column minScreenWidth="Small" demandPopin="true">
+						<Text text="{i18n>detailFolderContentTableLastModificationColumn}"/>
+					</Column>
+					<Column minScreenWidth="Small" demandPopin="true">
+						<Text text="{i18n>detailFolderContentTableFilesizeColumn}"/>
+					</Column>
+					<Column hAlign="Right" width="10%">
+						<Text text="{i18n>detailFolderContentTableActionsColumn}"/>
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Active">
+						<cells>
+							<core:Icon src="sap-icon://{=${contentModel>Type}==='Folder' ? 'folder-blank' : 'document-text'}" decorative="true"/>
+							<HBox>
+								<ObjectIdentifier title="{contentModel>Name}" visible="{=${contentModel>Id}!==${detailView>/editItem}}"/>
+								<Input value="{detailView>/editName}" valueState="{detailView>/editValueState}" liveChange="onEditValueChange" visible="{=${contentModel>Id}===${detailView>/editItem}}"/>
+							</HBox>
+							<Text text="{contentModel>Type}"/>
+							<Text text="{path: 'contentModel>Last Modification', formatter: '.formatter.formatDate'}"/>
+							<Text text="{path: 'contentModel>Filesize', formatter: '.formatter.formatFilesize'}"/>
+							<HBox>
+								<HBox visible="{=${contentModel>Id}!==${detailView>/editItem}}">
+									<Button class="transparentButton sapUiTinyMarginEnd" icon="sap-icon://delete" press="onDeletePressed"/>
+									<Button class="transparentButton" icon="sap-icon://edit" press="onEditPressed"/>
+								</HBox>
+								<HBox visible="{=${contentModel>Id}===${detailView>/editItem}}">
+									<Button type="Accept" icon="sap-icon://accept" press="onAcceptPressed" class="sapUiTinyMarginEnd"/>
+									<Button type="Reject" icon="sap-icon://decline" press="onDeclinePressed"/>
+								</HBox>
+							</HBox>
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+		<semantic:customFooterContent>
+			<Button icon="sap-icon://upload" text="{i18n>detailUploadFileButton}" press="onUploadDocumentPressed"/>
+			<Button icon="sap-icon://add-coursebook" text="{i18n>detailCreateFolderButton}" press="onCreateFolderPressed"/>
+		</semantic:customFooterContent>
+	</semantic:DetailPage>
+</mvc:View>

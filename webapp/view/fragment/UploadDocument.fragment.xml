@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified" xmlns:commons="sap.ui.commons" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form"
+	xmlns="sap.m">
+	<Dialog title="Upload file">
+		<form:Form>
+			<form:layout>
+				<form:ResponsiveGridLayout columnsM="1" columnsL="1" columnsXL="1" singleContainerFullSize="false" adjustLabelSpan="false" labelSpanM="4" emptySpanM="0"/>
+			</form:layout>
+			<form:FormContainer>
+				<form:FormElement label="Choose file">
+					<u:FileUploader id="fileUploader"
+								name="fileUploader"
+								value="{detailView>/valueFileUploader}"
+								uploadUrl="/backend/filebrowser"
+								multiple="false"
+								uploadComplete="onUploadFileComplete">
+					</u:FileUploader>
+				</form:FormElement>
+			</form:FormContainer>
+		</form:Form>
+		<buttons>
+			<Button id="btnUploadDocumentSave" text="{i18n>detailUploadButton}" press="onUploadDocumentSave"/>
+			<Button id="btnUploadDocumentCancel" text="{i18n>detailCancelButton}" press="onDialogCancel"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
